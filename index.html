@@ -89,9 +89,15 @@ In the 5× image, the camera is placed several feet away and a higher zoom is us
 These images demonstrate how perspective distortion is primarily controlled by camera distance, not zoom. Zoom only affects the field of view, while distance of camera from the subject determines how depth differences are projected onto the image. This is why portraits taken from farther away with zoom generally look more realistic than close-up wide-angle photos.
 </p>
 
-<button onclick="upvote('p1')">👍</button>
-<button onclick="downvote('p1')">👎</button>
-<span id="p1-count"></span>
+<div style="margin-top: 15px;">
+  <button onclick="vote('p1', 1)">👍</button>
+  <span id="p1_up">0</span>
+
+  &nbsp;&nbsp;
+
+  <button onclick="vote('p1', -1)">👎</button>
+  <span id="p1_down">0</span>
+</div>
 
 <h3>Problem 2: Perspective Compression in an Urban Scene (1× vs 3x)</h3>
 
@@ -111,6 +117,18 @@ These images demonstrate how perspective distortion is primarily controlled by c
 <p>In the second image, I walked closer to the scene and took the photograph without zoom. Although the scene appears similar in size, the depth relationships are much more pronounced. Objects closer to the camera appear significantly larger than those farther away, and the spacing between elements in the image becomes more evident.</p>
 
 <p>This difference occurs because perspective distortion depends on the distance between the camera and the scene, not on zoom. When the camera is far away, depth differences along the street are small relative to the camera distance, causing depth to be compressed. When the camera is closer, these depth differences become significant, resulting in stronger perspective effects.</p>
+
+<div style="margin-top: 15px;">
+  <button onclick="vote('p2', 1)">👍</button>
+  <span id="p2_up">0</span>
+
+  &nbsp;&nbsp;
+
+  <button onclick="vote('p2', -1)">👎</button>
+  <span id="p2_down">0</span>
+</div>
+
+
 
 <h3>Problem 3: Perspective vs Approximate Orthographic Projection</h3>
 
@@ -149,4 +167,54 @@ perspective distortion.
 </p>
 
 <hr>
+<div style="margin-top: 15px;">
+  <button onclick="vote('p3', 1)">👍</button>
+  <span id="p3_up">0</span>
+
+  &nbsp;&nbsp;
+
+  <button onclick="vote('p3', -1)">👎</button>
+  <span id="p3_down">0</span>
+</div>
+
+
+
+<script>
+  function vote(problemId, value) {
+    const key = "vote_" + problemId;
+
+    if (localStorage.getItem(key)) {
+      alert("You have already voted on this problem.");
+      return;
+    }
+
+    let up = parseInt(localStorage.getItem(problemId + "_up") || 0);
+    let down = parseInt(localStorage.getItem(problemId + "_down") || 0);
+
+    if (value === 1) up++;
+    if (value === -1) down++;
+
+    localStorage.setItem(problemId + "_up", up);
+    localStorage.setItem(problemId + "_down", down);
+    localStorage.setItem(key, value);
+
+    updateDisplay(problemId);
+  }
+
+  function updateDisplay(problemId) {
+    const up = localStorage.getItem(problemId + "_up") || 0;
+    const down = localStorage.getItem(problemId + "_down") || 0;
+
+    document.getElementById(problemId + "_up").innerText = up;
+    document.getElementById(problemId + "_down").innerText = down;
+  }
+
+  function loadVotes() {
+    const problems = ["p1", "p2", "p3"];
+    problems.forEach(updateDisplay);
+  }
+
+  window.onload = loadVotes;
+</script>
+
 
