@@ -58,3 +58,41 @@ These images demonstrate how perspective distortion is primarily controlled by c
 
 <p>This difference occurs because perspective distortion depends on the distance between the camera and the scene, not on zoom. When the camera is far away, depth differences along the street are small relative to the camera distance, causing depth to be compressed. When the camera is closer, these depth differences become significant, resulting in stronger perspective effects.</p>
 
+<h3>Problem 3: Perspective vs Approximate Orthographic Projection</h3>
+
+<p>
+I captured two images of a rectangular table containing clear straight edges.
+The goal was to compare perspective projection with an approximate orthographic projection
+using different camera settings.
+</p>
+
+<h4>Perspective Projection (Camera Close to Scene)</h4>
+<img src="Screenshot 2026-01-29 123949.png" width="500">
+
+<p>
+In this image, the camera was placed relatively close to the scene with no zoom.
+The red lines highlight straight edges in the scene. Although these edges are parallel in
+the real world, they clearly appear to converge in the image. This convergence is a result
+of perspective projection, where objects farther from the camera are projected to smaller
+sizes, causing parallel lines to meet at vanishing points.
+</p>
+
+<h4>Approximate Orthographic Projection (Camera Far with 3x Zoom)</h4>
+<img src="Screenshot 2026-01-29 123942.png" width="500">
+
+<p>
+In this image, the camera was placed farther away from the scene, and 3x zoom was used to maintain a similar framing. The red lines drawn
+along the same types of edges are not perfectly parallel, but they are noticeably less
+convergent compared to the perspective projection image.
+</p>
+
+<p>
+This occurs because a true orthographic projection cannot be achieved using a standard
+camera. However, increasing the camera distance reduces the effect of depth variation
+relative to the camera distance, making the projection behave more like an orthographic
+projection. As a result, parallel edges appear much less convergent, with significantly reduced
+perspective distortion.
+</p>
+
+<hr>
+
