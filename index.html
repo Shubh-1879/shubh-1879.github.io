@@ -1,15 +1,18 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Shubham Agarwal – Computer Vision</title>
-</head>
-<body>
-  <h1>Shubham Agarwal</h1>
-  <h2>Computer Vision – ISM</h2>
+<h3>Problem 1: Portrait Perspective (1× vs 5×)</h3>
 
-  <h3>Problem 1</h3>
-  <p>Text explanation here</p>
-  <img src="images/p1_close.jpg" width="300">
+<p><b>1× (close to subject):</b></p>
+<img src="images/face_1x.jpg" width="300">
 
-</body>
-</html>
+<p><b>5× (farther away with zoom):</b></p>
+<img src="images/face_5x.jpg" width="300">
+
+<p>
+When the camera is close to the subject, perspective distortion is strong because
+facial features are at different depths. Moving farther away and using zoom reduces
+relative depth differences, producing a more orthographic projection and a more
+natural-looking image.
+</p>
+
+<button onclick="upvote('p1')">👍</button>
+<button onclick="downvote('p1')">👎</button>
+<span id="p1-count"></span>
