@@ -101,12 +101,11 @@ In the 5× image, the camera is placed several feet away and a higher zoom is us
 These images demonstrate how perspective distortion is primarily controlled by camera distance, not zoom. Zoom only affects the field of view, while distance of camera from the subject determines how depth differences are projected onto the image. This is why portraits taken from farther away with zoom generally look more realistic than close-up wide-angle photos.
 </p>
 
-<p>
-  Vote here:
-  <a href="https://github.com/Shubh-1879/shubh-1879.github.io/issues/1" target="_blank">
-    GitHub Issue (👍 / 👎)
-  </a>
-</p>
+<a href="https://github.com/Shubh-1879/shubh-1879.github.io/issues/1"
+   target="_blank">
+   Vote on GitHub (👍 / 👎)
+</a>
+
 
 
 <h3>Problem 2: Perspective Compression in an Urban Scene (1× vs 3x)</h3>
@@ -128,12 +127,11 @@ These images demonstrate how perspective distortion is primarily controlled by c
 
 <p>This difference occurs because perspective distortion depends on the distance between the camera and the scene, not on zoom. When the camera is far away, depth differences along the street are small relative to the camera distance, causing depth to be compressed. When the camera is closer, these depth differences become significant, resulting in stronger perspective effects.</p>
 
-<p>
-  Vote here:
-  <a href="https://github.com/Shubh-1879/shubh-1879.github.io/issues/2" target="_blank">
-    GitHub Issue (👍 / 👎)
-  </a>
-</p>
+<a href="https://github.com/Shubh-1879/shubh-1879.github.io/issues/2"
+   target="_blank">
+   Vote on GitHub (👍 / 👎)
+</a>
+
 
 
 
@@ -175,51 +173,10 @@ perspective distortion.
 </p>
 
 <hr>
-<p>
-  Vote here:
-  <a href="https://github.com/Shubh-1879/shubh-1879.github.io/issues/3" target="_blank">
-    GitHub Issue (👍 / 👎)
-  </a>
-</p>
+<a href="https://github.com/Shubh-1879/shubh-1879.github.io/issues/3"
+   target="_blank">
+   Vote on GitHub (👍 / 👎)
+</a>
 
-
-
-
-<script>
-  function vote(problemId, value) {
-    const key = "vote_" + problemId;
-
-    if (localStorage.getItem(key)) {
-      alert("You have already voted on this problem.");
-      return;
-    }
-
-    let up = parseInt(localStorage.getItem(problemId + "_up") || 0);
-    let down = parseInt(localStorage.getItem(problemId + "_down") || 0);
-
-    if (value === 1) up++;
-    if (value === -1) down++;
-
-    localStorage.setItem(problemId + "_up", up);
-    localStorage.setItem(problemId + "_down", down);
-    localStorage.setItem(key, value);
-
-    updateDisplay(problemId);
-  }
-
-  function updateDisplay(problemId) {
-    const up = localStorage.getItem(problemId + "_up") || 0;
-    const down = localStorage.getItem(problemId + "_down") || 0;
-
-    document.getElementById(problemId + "_up").innerText = up;
-    document.getElementById(problemId + "_down").innerText = down;
-  }
-
-  function loadVotes() {
-    ["p1", "p2", "p3"].forEach(updateDisplay);
-  }
-
-  window.onload = loadVotes;
-</script>
 
 
