@@ -12,6 +12,18 @@
     font-size: 2.4em;
     margin-bottom: 0.2em;
   }
+  button {
+  background-color: #222;
+  color: #f5f5f5;
+  border: 1px solid #555;
+  border-radius: 5px;
+  padding: 6px 10px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #444;
+}
 
   h2 {
     color: #8be9fd;
@@ -93,6 +105,8 @@ These images demonstrate how perspective distortion is primarily controlled by c
   <button onclick="vote('p1', 1)">👍</button>
   <span id="p1_up">0</span>
 
+
+
   &nbsp;&nbsp;
 
   <button onclick="vote('p1', -1)">👎</button>
@@ -169,12 +183,13 @@ perspective distortion.
 <hr>
 <div style="margin-top: 15px;">
   <button onclick="vote('p3', 1)">👍</button>
-  <span id="p3_up">0</span>
-
-  &nbsp;&nbsp;
-
   <button onclick="vote('p3', -1)">👎</button>
-  <span id="p3_down">0</span>
+
+  <p style="margin-top: 8px; color: #bbbbbb;">
+    👍 Upvotes: <span id="p3_up">0</span>
+    &nbsp;&nbsp;&nbsp;
+    👎 Downvotes: <span id="p3_down">0</span>
+  </p>
 </div>
 
 
@@ -210,8 +225,7 @@ perspective distortion.
   }
 
   function loadVotes() {
-    const problems = ["p1", "p2", "p3"];
-    problems.forEach(updateDisplay);
+    ["p1", "p2", "p3"].forEach(updateDisplay);
   }
 
   window.onload = loadVotes;
