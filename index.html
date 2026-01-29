@@ -1,4 +1,14 @@
-<h3>Problem 1: Portrait Perspective (1× vs 5×)</h3>
+<div style="text-align: center;">
+  <h1>Computer Vision — Assignment 0</h1>
+  <p>
+    <b>Shubham Agarwal</b><br>
+    shubham.agarwal_phd24@ashoka.edu.in
+  </p>
+</div>
+
+<hr>
+
+<h3>Problem 1: Portrait Perspective (1× vs 3x vs 5×)</h3>
 
 <p> I took three photographs of the same person (my sister) using : 1×, 3×, and 5× zoom. The goal was to keep the face approximately the same size in the image while changing the distance between the camera and the subject.
 </p>
@@ -28,3 +38,22 @@ These images demonstrate how perspective distortion is primarily controlled by c
 <button onclick="upvote('p1')">👍</button>
 <button onclick="downvote('p1')">👎</button>
 <span id="p1-count"></span>
+
+<h3>Problem 2: Perspective Compression in an Urban Scene (1× vs 3x)</h3>
+
+<p> I took photographs of a fire hose box on University Campus using two different camera setups while keeping the apparent size of the scene approximately the same.
+</p>
+
+<p><b>1× (away with 3x zoom):</b></p>
+<img src="1.jpg" width="300">
+  
+<p>In the first image, I stood far away from the scene and used zoom to frame it. This image appears visually flattened or compressed. Objects at different depths along the campus—such as buildings, poles, or trees appear closer together than they actually are.</p>
+
+
+<p><b>1× (close to subject - 1x):</b></p>
+<img src="2.jpg" width="300">
+  
+<p>In the second image, I walked closer to the scene and took the photograph without zoom. Although the scene appears similar in size, the depth relationships are much more pronounced. Objects closer to the camera appear significantly larger than those farther away, and the spacing between elements in the image becomes more evident.</p>
+
+<p>This difference occurs because perspective distortion depends on the distance between the camera and the scene, not on zoom. When the camera is far away, depth differences along the street are small relative to the camera distance, causing depth to be compressed. When the camera is closer, these depth differences become significant, resulting in stronger perspective effects.</p>
+
