@@ -179,4 +179,78 @@ perspective distortion.
 </a>
 
 
+<hr>
+<section id="assignment-2">
+    <h1>Assignment 2: Corner Detection and Feature Matching</h1>
+
+    <h2>Part A: Harris Corner Detection Evaluation</h2>
+    <p>
+        In this section, I evaluated the performance of the <strong>Harris Corner Detector</strong> using an image of a building at Ashoka University. 
+        The goal was to compare automated detection against a manually annotated ground truth.
+    </p>
+
+    <ul>
+        <li><strong>Ground Truth:</strong> Manually annotated 50 distinct corners on the building facade.</li>
+        <li><strong>Algorithm:</strong> Used <code>cv2.cornerHarris</code> to compute corner scores based on the local auto-correlation matrix.</li>
+        <li><strong>Evaluation:</strong> Tested 10 different thresholds. A detected point was considered a <strong>True Positive</strong> if it fell within a 10-pixel radius of a ground truth point.</li>
+    </ul>
+
+    <div style="text-align: center;">
+        <img src="path_to_your_grid_image.jpg" alt="Threshold Grid" style="width: 80%; margin-bottom: 10px;">
+        <p><em>Figure 1: Detected corners (Red) vs Ground Truth (Green) across 10 thresholds.</em></p>
+        
+        <img src="path_to_your_pr_curve.png" alt="PR Curve" style="width: 50%;">
+        <p><em>Figure 2: Precision-Recall Curve. Estimated AUC: 0.0028.</em></p>
+    </div>
+
+    <p>
+        <strong>Observation:</strong> The low AUC is attributed to the "cluster effect"—where the detector identifies multiple pixels for a single physical corner—and the high texture of the building bricks, which the algorithm correctly identifies as corners even if they weren't in the manual ground truth.
+    </p>
+
+    <hr style="width: 50%; border: 0.5px solid #ccc;">
+
+    <h2>Part B: SIFT Feature Matching & Occlusion</h2>
+    <p>
+        This part involved analyzing 19 images of a mulch stack where a tree trunk eventually occludes the subject. 
+        I used <strong>SIFT (Scale-Invariant Feature Transform)</strong> to compare consecutive vs. random frame matching.
+    </p>
+
+    <table border="1" style="width: 100%; border-collapse: collapse; text-align: center; margin-bottom: 20px;">
+        <tr style="background-color: #f2f2f2;">
+            <th>Metric</th>
+            <th>Consecutive Pairs</th>
+            <th>Random Pairs</th>
+        </tr>
+        <tr>
+            <td><strong>Total Cost (Sum of Dist)</strong></td>
+            <td>1.53e+06</td>
+            <td>1.46e+06</td>
+        </tr>
+        <tr>
+            <td><strong>Avg. Matches (Count)</strong></td>
+            <td>7,718</td>
+            <td>5,569</td>
+        </tr>
+        <tr>
+            <td><strong>Avg. Cost per Match</strong></td>
+            <td>209.24</td>
+            <td>264.63</td>
+        </tr>
+    </table>
+
+    <p>
+        <strong>Analysis:</strong> 
+        Although the <em>Total Cost</em> for consecutive pairs was higher, this was due to the significantly higher number of successful matches found (7,718 vs 5,569). 
+        The <strong>Average Cost per Match</strong> confirms that consecutive frames are more similar (209.24) compared to random pairs (264.63). 
+        The "spike" in cost during the sequence was caused by the <strong>tree trunk occlusion</strong>, which forced the matcher to pair unrelated descriptors (bark vs. plastic), increasing the Euclidean distance.
+    </p>
+
+    <p>
+        <a href="https://github.com/Shubh-1879/your-repo-path/blob/main/code.ipynb" target="_blank">
+            [View Full Jupyter Notebook on GitHub]
+        </a>
+    </p>
+</section>
+
+
 
