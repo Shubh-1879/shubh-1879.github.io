@@ -180,77 +180,84 @@ perspective distortion.
 
 
 <hr>
-<section id="assignment-2">
-    <h1>Assignment 2: Corner Detection and Feature Matching</h1>
+<section id="assignment-2" style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; color: #333; max-width: 900px; margin: auto; padding: 20px;">
+    <h1 style="color: #2c3e50; border-bottom: 2px solid #eee; padding-bottom: 10px;">Assignment 2: Computer Vision - Corner Detection & Feature Matching</h1>
 
-    <h2>Part A: Harris Corner Detection Evaluation</h2>
-    <p>
-        In this section, I evaluated the performance of the <strong>Harris Corner Detector</strong> using an image of a building at Ashoka University. 
-        The goal was to compare automated detection against a manually annotated ground truth.
-    </p>
+    <article>
+        <h2 style="color: #2980b9;">Part A: Harris Corner Detection Evaluation</h2>
+        <p>
+            In this experiment, I evaluated the <strong>Harris Corner Detector</strong> ($R = \det(M) - k(\text{trace}(M))^2$) using an image of an Ashoka University building facade. 
+            The objective was to quantify the detector's performance against a manual ground truth across varying thresholds.
+        </p>
 
-    <ul>
-        <li><strong>Ground Truth:</strong> Manually annotated 50 distinct corners on the building facade.</li>
-        <li><strong>Algorithm:</strong> Used <code>cv2.cornerHarris</code> to compute corner scores based on the local auto-correlation matrix.</li>
-        <li><strong>Evaluation:</strong> Tested 10 different thresholds. A detected point was considered a <strong>True Positive</strong> if it fell within a 10-pixel radius of a ground truth point.</li>
-    </ul>
+        <h3 style="font-size: 1.2em;">Methodology</h3>
+        <ul style="background-color: #f9f9f9; padding: 15px 35px; border-radius: 5px;">
+            <li><strong>Ground Truth:</strong> 50 corners were manually annotated on the high-contrast building edges.</li>
+            <li><strong>Thresholding:</strong> Tested 10 linear thresholds ranging from $0.001$ to $0.1$ of the maximum Harris score.</li>
+            <li><strong>Metric Calculation:</strong> A detection was classified as a <strong>True Positive</strong> if it appeared within a 10-pixel radius of a ground truth point.</li>
+        </ul>
 
-    <div style="text-align: center;">
-        <img src="path_to_your_grid_image.jpg" alt="Threshold Grid" style="width: 80%; margin-bottom: 10px;">
-        <p><em>Figure 1: Detected corners (Red) vs Ground Truth (Green) across 10 thresholds.</em></p>
-        
-        <img src="path_to_your_pr_curve.png" alt="PR Curve" style="width: 50%;">
-        <p><em>Figure 2: Precision-Recall Curve. Estimated AUC: 0.0028.</em></p>
-    </div>
+        <div style="display: flex; flex-direction: column; align-items: center; margin: 20px 0;">
+            <img src="threshold_grid.jpg" alt="Harris Detection Grid" style="width: 100%; border: 1px solid #ddd; border-radius: 4px; box-shadow: 2px 2px 10px rgba(0,0,0,0.1);">
+            <p style="font-style: italic; font-size: 0.9em; margin-top: 10px;">Figure 1: Comparison of detected corners (Red) vs. Ground Truth (Green) across 10 thresholds.</p>
+            
+            <img src="pr_curve.png" alt="Precision-Recall Curve" style="width: 60%; margin-top: 20px;">
+            <p style="font-style: italic; font-size: 0.9em;">Figure 2: Precision-Recall Curve. <strong>Estimated AUC: 0.0028</strong>.</p>
+        </div>
 
-    <p>
-        <strong>Observation:</strong> The low AUC is attributed to the "cluster effect"—where the detector identifies multiple pixels for a single physical corner—and the high texture of the building bricks, which the algorithm correctly identifies as corners even if they weren't in the manual ground truth.
-    </p>
+        <p><strong>Discussion:</strong> The low AUC is a result of the high sensitivity of the Harris algorithm to the brick textures and window frame reflections, which were correctly identified as corners but were not part of the sparse 50-point manual ground truth.</p>
+    </article>
 
-    <hr style="width: 50%; border: 0.5px solid #ccc;">
+    <br>
 
-    <h2>Part B: SIFT Feature Matching & Occlusion</h2>
-    <p>
-        This part involved analyzing 19 images of a mulch stack where a tree trunk eventually occludes the subject. 
-        I used <strong>SIFT (Scale-Invariant Feature Transform)</strong> to compare consecutive vs. random frame matching.
-    </p>
+    <article>
+        <h2 style="color: #2980b9;">Part B: SIFT Feature Matching & Occlusion Analysis</h2>
+        <p>
+            Using a sequence of 19 images depicting a mulch stack, I analyzed the robustness of <strong>SIFT (Scale-Invariant Feature Transform)</strong> descriptors under camera movement and occlusion (a tree trunk).
+        </p>
 
-    <table border="1" style="width: 100%; border-collapse: collapse; text-align: center; margin-bottom: 20px;">
-        <tr style="background-color: #f2f2f2;">
-            <th>Metric</th>
-            <th>Consecutive Pairs</th>
-            <th>Random Pairs</th>
-        </tr>
-        <tr>
-            <td><strong>Total Cost (Sum of Dist)</strong></td>
-            <td>1.53e+06</td>
-            <td>1.46e+06</td>
-        </tr>
-        <tr>
-            <td><strong>Avg. Matches (Count)</strong></td>
-            <td>7,718</td>
-            <td>5,569</td>
-        </tr>
-        <tr>
-            <td><strong>Avg. Cost per Match</strong></td>
-            <td>209.24</td>
-            <td>264.63</td>
-        </tr>
-    </table>
+        <h3 style="font-size: 1.2em;">Quantitative Comparison</h3>
+        <table style="width: 100%; border-collapse: collapse; margin: 20px 0; text-align: left; border: 1px solid #ddd;">
+            <thead style="background-color: #ecf0f1;">
+                <tr>
+                    <th style="padding: 12px; border: 1px solid #ddd;">Metric (Averages)</th>
+                    <th style="padding: 12px; border: 1px solid #ddd;">Consecutive Pairs (Step 3)</th>
+                    <th style="padding: 12px; border: 1px solid #ddd;">Random Pairs (Step 4)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td style="padding: 12px; border: 1px solid #ddd;"><strong>Total Matching Cost</strong></td>
+                    <td style="padding: 12px; border: 1px solid #ddd;">1,534,980</td>
+                    <td style="padding: 12px; border: 1px solid #ddd;">1,462,135</td>
+                </tr>
+                <tr>
+                    <td style="padding: 12px; border: 1px solid #ddd;"><strong>Match Count</strong></td>
+                    <td style="padding: 12px; border: 1px solid #ddd;"><strong>7,718.6</strong></td>
+                    <td style="padding: 12px; border: 1px solid #ddd;">5,569.1</td>
+                </tr>
+                <tr>
+                    <td style="padding: 12px; border: 1px solid #ddd;"><strong>Cost per Match (Avg Distance)</strong></td>
+                    <td style="padding: 12px; border: 1px solid #ddd;"><strong>209.24</strong></td>
+                    <td style="padding: 12px; border: 1px solid #ddd;">264.63</td>
+                </tr>
+            </tbody>
+        </table>
 
-    <p>
-        <strong>Analysis:</strong> 
-        Although the <em>Total Cost</em> for consecutive pairs was higher, this was due to the significantly higher number of successful matches found (7,718 vs 5,569). 
-        The <strong>Average Cost per Match</strong> confirms that consecutive frames are more similar (209.24) compared to random pairs (264.63). 
-        The "spike" in cost during the sequence was caused by the <strong>tree trunk occlusion</strong>, which forced the matcher to pair unrelated descriptors (bark vs. plastic), increasing the Euclidean distance.
-    </p>
+        <h3 style="font-size: 1.2em;">Findings & Answers</h3>
+        <p>
+            <strong>Is the cost in (3) lower or (4) lower? Why?</strong><br>
+            In terms of <strong>Total Cost</strong>, Step 4 (Random) appeared lower. However, this is a mathematical paradox caused by the match count. Consecutive pairs have high visual overlap, resulting in ~2,200 more matches than random pairs. Since total cost is a summation of distances, more matches naturally lead to a higher sum.
+        </p>
+        <p>
+            The <strong>Average Cost per Match</strong> is the true indicator of performance: consecutive pairs (<strong>209.24</strong>) are significantly lower than random pairs (264.63). This confirms that features in consecutive frames are more similar.
+        </p>
+        <p>
+            <strong>The Occlusion Factor:</strong> During the consecutive sequence, a tree trunk occludes the mulch stack. This caused a localized spike in cost and a drop in match count, as the SIFT algorithm could not find stable correspondences between the mulch and the dissimilar tree bark textures.
+        </p>
+    </article>
 
-    <p>
-        <a href="https://github.com/Shubh-1879/your-repo-path/blob/main/code.ipynb" target="_blank">
-            [View Full Jupyter Notebook on GitHub]
-        </a>
-    </p>
+    <footer style="margin-top: 40px; font-size: 0.9em; color: #7f8c8d;">
+        <p>Code and full analysis available in the <a href="https://github.com/Shubh-1879/" target="_blank" style="color: #3498db;">Assignment 2 Repository</a>.</p>
+    </footer>
 </section>
-
-
-
