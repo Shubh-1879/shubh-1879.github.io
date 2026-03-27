@@ -189,16 +189,19 @@ perspective distortion.
     <article style="margin-bottom: 50px;">
         <h2 style="color: #d19a66; border-left: 4px solid #d19a66; padding-left: 15px;">Part A: Hunting for Corners at Ashoka</h2>
         <p>
-            For the first half of this project, I headed out and took a high-res photo of one of the buildings here at <strong>Ashoka University</strong>. I was looking for something with plenty of sharp, geometric lines—perfect for testing a corner detector.
+            For the first half of this assignment, I headed out and took a high-res photo of one of the buildings here at <strong>Ashoka University</strong>. I was looking for something with plenty of sharp, geometric lines; perfect for testing a corner detector.
         </p>
-
+        <div style="text-align: center; margin: 30px 0;">
+            <img src="original_img.png" alt="Original Image" style="width: 100%; border-radius: 8px; border: 1px solid #3e4451;">
+            
+        </div>
         <h3 style="color: #56b6c2;">What I did:</h3>
         <p>
             I started by manually clicking and annotating <strong>50 specific corners</strong> on the building facade to create my "ground truth." Then, I ran the <strong>CV2 Harris Corner detector</strong> on the image. Since the detector gives a score for every pixel, I had to test it against 10 different thresholds to see how "picky" the algorithm should be.
         </p>
 
         <div style="text-align: center; margin: 30px 0;">
-            <img src="threshold_grid.jpg" alt="Harris Grid" style="width: 100%; border-radius: 8px; border: 1px solid #3e4451;">
+            <img src="Harris_corners.png" alt="Harris Grid" style="width: 100%; border-radius: 8px; border: 1px solid #3e4451;">
             <p style="font-size: 0.85em; color: #828997; margin-top: 10px;">I plotted the detections (Red) against my clicks (Green). As the threshold goes up, the noise disappears.</p>
         </div>
 
@@ -206,8 +209,12 @@ perspective distortion.
         <p>
             When I plotted the <strong>Precision-Recall curve</strong>, I got an <strong>AUC of 0.0028</strong>. At first, that number seemed tiny! But when I looked closer at my grid, I realized why. The Harris detector is incredibly sensitive; it was picking up every single brick texture and reflection on the glass. 
         </p>
+       <div style="text-align: center; margin: 30px 0;">
+            <img src="precision.png" alt="Precision-Recall curve" style="width: 100%; border-radius: 8px; border: 1px solid #3e4451;">
+            <p style="font-size: 0.85em; color: #828997; margin-top: 10px;">High Recall but precision tanked due to abundant False Positives</p>
+        </div>
         <p>
-            Because I only annotated 50 "main" corners, all those other mathematically correct corners were marked as "False Positives," which tanked my precision. It was a great lesson in how human intuition and raw math don't always align in computer vision.
+            Because I only annotated 50 "main" corners, all those other mathematically correct corners were marked as "False Positives," which tanked my precision. It was an interesting lesson in how human intuition and raw math don't always align in computer vision.
         </p>
     </article>
 
@@ -216,7 +223,10 @@ perspective distortion.
         <p>
             In the second part, I worked with a sequence of 19 images showing a camera moving around a stack of mulch bags. Things got interesting halfway through when a large tree trunk moved directly between the camera and the stack.
         </p>
-
+        <div style="text-align: center; margin: 30px 0;">
+            <img src="SIFT.png" alt="SIFT" style="width: 100%; border-radius: 8px; border: 1px solid #3e4451;">
+            
+        </div>
         <h3 style="color: #56b6c2;">The Matching Experiment:</h3>
         <p>
             I used <strong>SIFT</strong> to extract features and matched them in two ways: first between consecutive frames (the natural order) and then between 19 pairs of random frames.
@@ -251,7 +261,7 @@ perspective distortion.
 
         <h3 style="color: #56b6c2;">Answering the Big "Why":</h3>
         <p>
-            Wait—why was my <strong>Total Cost</strong> higher for consecutive frames? It felt like a mistake at first! But then I noticed the <strong>Match Count</strong>. 
+            Wait!  Why was my <strong>Total Cost</strong> higher for consecutive frames? It felt like a mistake at first! But then I noticed the <strong>Match Count</strong>. 
         </p>
         <p>
             Because consecutive images look so similar, SIFT found way more matches (over 2,000 more!). Since the total cost is just the sum of all distances, more matches naturally create a bigger number. The <em>real</em> proof is in the <strong>Average Cost per Match</strong>: 
